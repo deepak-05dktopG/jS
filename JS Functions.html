@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+
+
+</style>
+
+<body>
+    <div class="todo-form">
+        <input type="text" id="inputtext">
+        <button id="addbtn">Add</button>
+    </div>
+    <ol id="todolist"></ol>
+
+    <script>
+        const inputtxt = document.getElementById("inputtext");
+        const addbtn = document.getElementById("addbtn");
+        const todolist = document.getElementById("todolist");
+        const d =new Date();
+       
+        addbtn.addEventListener("click", function () {
+            const text = inputtxt.value;
+            if (text) {
+                const todoitem = document.createElement("li");
+                const todop = document.createElement("span");
+                const deleteButton = document.createElement('button');
+                const donebtn = document.createElement('button');
+                const datehead=document.createElement("div");
+                const datesection = document.createElement("span");
+                const datesection1 = document.createElement("span");
+                const rightsection = document.createElement("div");
+                datesection1.innerHTML = "<b>Added:</b> " + d.getDate() + "/" + d.getMonth() + "/" + d.getFullYear() + " " + d.getHours() + "h" + ":" + d.getMinutes() + "m" + ":" + d.getSeconds() + "s";
+                donebtn.addEventListener("click", function () {
+                    if (donebtn.innerText == "Done") {
+                        const d = new Date();
+
+                        donebtn.innerText = "not Done";
+                        todoitem.classList.toggle("done");
+                        todoitem.style.textDecoration = "line-through";
+                        datesection.innerHTML = "<b>Done:</b> " + d.getDate() + "/" + d.getMonth() + "/" + d.getFullYear() + " " + d.getHours() + "h" + ":" + d.getMinutes() + "m" + ":" + d.getSeconds() + "s";
+                    }
+                    else {
+                        todoitem.classList.toggle("done");
+                        donebtn.innerText = "Done";
+                        todoitem.style.textDecoration = "none";
+                        datesection.innerHTML="";
+                    }
+                });
+            
+
+                window.addEventListener("resize", function () {
+                    if (window.innerWidth <= 570) {
+                        datesection1.style.fontSize = "8px";
+                        datesection.style.fontSize = "8px";
+
+                    } else {
+                        datesection1.style.fontSize = "15px";
+                        datesection.style.fontSize = "15px";
+
+                    }
+                });
+
+
+                todoitem.appendChild(todop);
+                todoitem.appendChild(rightsection);
+                rightsection.appendChild(donebtn);
+                rightsection.appendChild(deleteButton);
+                todolist.appendChild(todoitem);
+                todolist.appendChild(datehead);
+                datehead.appendChild(datesection1);
+                datehead.appendChild(datesection);
+
+
+                todoitem.style.padding = "10px";
+                rightsection.style.cssFloat = "right";
+                todoitem.style.margin = "5px 0px 0px 0px";
+                datehead.style.display="flex";
+
+                inputtxt.value = "";
+                todoitem.style.backgroundColor = ""
+                todop.innerHTML = text;
+                donebtn.innerText = "Done"
+                donebtn.style.fontSize = "smaller"
+                deleteButton.innerText = 'x';
+                deleteButton.style.color = "red"
+
+                deleteButton.addEventListener('click', function () {
+                    todolist.removeChild(todoitem);
+                    todolist.removeChild(datehead);
+
+
+                });
+            }
+        })
+
+
+
+    </script>
+
+</body>
+
+</html>
